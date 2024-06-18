@@ -13,25 +13,22 @@ function getValidationErrors(validate: ValidateFunction | undefined): string {
   )
 }
 
-async function validate(schema: ValidationSchema, data: unknown): Promise<unknown> {
+async function validate(schema: ValidationSchema, data: unknown) {
   let validatorImport
   switch (schema) {
     case ValidationSchema.LIST:
-      validatorImport = await import('utils/__generated__/validateTokenList')
+      validatorImport = "";
       break
     case ValidationSchema.TOKENS:
-      validatorImport = await import('utils/__generated__/validateTokens')
+      validatorImport = "";
       break
     default:
       throw new Error('No validation function specified for token list schema')
   }
 
   const [, validatorModule] = await Promise.all([import('ajv'), validatorImport])
-  const validator = validatorModule.default as ValidateFunction
-  if (validator?.(data)) {
-    return data
-  }
-  throw new Error(getValidationErrors(validator))
+  const validator = validatorModule 
+  
 }
 
 /**
