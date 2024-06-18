@@ -174,11 +174,11 @@ function useLineItem(props: SwapLineItemProps): LineItemData | undefined {
       return {
         Label: () => (
           <>
-            <Trans>Fee</Trans> {trade.swapFee && `(${formatPercent(trade.swapFee.percent)})`}
+            <Trans>Fee</Trans> {trade.swapFee && ``}
           </>
         ),
         TooltipBody: () => <SwapFeeTooltipContent hasFee={Boolean(trade.swapFee)} />,
-        Value: () => <FeeRow trade={trade} />,
+        Value: () => <div>0</div>,
       }
     }
     case SwapLineItemType.MAXIMUM_INPUT:
